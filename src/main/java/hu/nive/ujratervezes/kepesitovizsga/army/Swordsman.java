@@ -23,6 +23,6 @@ public class Swordsman extends MilitaryUnit {
             firstAttack = false;
             return;
         }
-        hitPoints -= isHaveArmor() ? damage / 2 : damage;
+        setHitpointsByDamage(damage);
     }
 }

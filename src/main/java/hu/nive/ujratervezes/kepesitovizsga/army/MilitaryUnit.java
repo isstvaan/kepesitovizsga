@@ -2,7 +2,7 @@ package hu.nive.ujratervezes.kepesitovizsga.army;
 
 public abstract class MilitaryUnit {
 
-    protected int hitPoints;
+    private int hitPoints;
     private final int damagePoints;
     private final boolean haveArmor;
 
@@ -23,6 +23,10 @@ public abstract class MilitaryUnit {
     public abstract int doDamage();
 
     public abstract void sufferDamage(int damage);
+
+    protected void setHitpointsByDamage(int damage) {
+        hitPoints -= isHaveArmor() ? damage / 2 : damage;
+    }
 
     public boolean isAbleToFight() {
         return hitPoints > 25;

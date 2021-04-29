@@ -3,6 +3,8 @@ package hu.nive.ujratervezes.kepesitovizsga.army;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Army {
 
@@ -21,25 +23,29 @@ public class Army {
     }
 
     public int getArmyDamage() {
-        int sumDamage = 0;
+        return militaryUnits.stream().mapToInt(MilitaryUnit::doDamage).sum();
 
-        for (MilitaryUnit item : militaryUnits) {
-            sumDamage += item.doDamage();
-        }
-
-        return sumDamage;
+//        int sumDamage = 0;
+//
+//        for (MilitaryUnit item : militaryUnits) {
+//            sumDamage += item.doDamage();
+//        }
+//        return sumDamage;
     }
 
     public void damageAll(int damage) {
-        Iterator<MilitaryUnit> unitIterator = militaryUnits.iterator();
+        militaryUnits.forEach(o -> o.sufferDamage(damage));
+        militaryUnits = militaryUnits.stream().filter(MilitaryUnit::isAbleToFight).collect(Collectors.toList());
 
-        while (unitIterator.hasNext()) {
-            MilitaryUnit unit = unitIterator.next();
-            unit.sufferDamage(damage);
-
-            if (!unit.isAbleToFight()) {
-                unitIterator.remove();
-            }
-        }
+//        Iterator<MilitaryUnit> unitIterator = militaryUnits.iterator();
+//
+//        while (unitIterator.hasNext()) {
+//            MilitaryUnit unit = unitIterator.next();
+//            unit.sufferDamage(damage);
+//
+//            if (!unit.isAbleToFight()) {
+//                unitIterator.remove();
+//            }
+//        }
     }
 }

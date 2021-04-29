@@ -13,6 +13,9 @@ public class Archer extends MilitaryUnit {
 
     @Override
     public void sufferDamage(int damage) {
-        hitPoints -= isHaveArmor() ? damage / 2 : damage;
+        if (damage < 0) {
+            throw new IllegalArgumentException("Damage can't be less the zero");
+        }
+        setHitpointsByDamage(damage);
     }
 }
